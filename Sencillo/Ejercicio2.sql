@@ -1,3 +1,16 @@
+CREATE TABLE ventas (
+    id         INT PRIMARY KEY,
+    cliente    NVARCHAR(50),
+    ciudad     NVARCHAR(30),
+    producto   NVARCHAR(30),
+    categoria  NVARCHAR(30),
+    cantidad   INT,
+    precio     DECIMAL(8,2),
+    fecha      DATE
+);
+
+
+
 --Por cada categoría, muestra el número de ventas, las unidades vendidas, el importe total, el importe medio por venta (redondeado a 2 decimales)
 --y el precio unitario máximo. Excluye las ventas sin ciudad, deja solo las categorías con más de 3 ventas 
 --y ordénalas por importe total descendente.
@@ -35,3 +48,5 @@ GROUP BY cliente
 HAVING SUM(cantidad * precio) > 250
    AND COUNT(*) >= 2
 ORDER BY importe_total DESC, cliente;   
+
+
