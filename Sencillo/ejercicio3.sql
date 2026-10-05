@@ -69,4 +69,33 @@ HAVING SUM(cantidad * precio) > 500
 ORDER BY importe_total DESC
 
 
+--por producto, muestra el número de ventas y el importe total (cantidad * precio),
+-- contando solo las ventas hechas en Madrid o Valencia.
+--  Deja solo los productos con un importe total superior a 100 y ordénalos de mayor a menor importe.
 
+SELECT
+producto,
+COUNT(*) AS numero_ventas,
+SUM(cantidad * precio) AS importe_total
+FROM ventas
+WHERE ciudad IN ('Madrid', 'Valencia')
+GROUP BY producto
+HAVING SUM(cantidad*precio) > 100
+ORDER BY importe_total DESC 
+
+--por cliente, muestra el número de compras, las unidades totales y el importe total (cantidad * precio),
+--contando solo las ventas de las categorías Informática o Audio.
+--Deja solo los clientes con un importe total superior a 300 
+--y ordénalos por unidades totales de mayor a menor, y por nombre de cliente en caso de empate.
+
+
+SELECT
+cliente,
+COUNT(*) AS num_compras,
+SUM(cantidad) AS uni_totales,
+SUM(cantidad * precio) AS importe_total
+FROM ventas
+WHERE categoria IN ('Informatica', 'Audio')
+GROUP BY cliente
+HAVING SUM(cantidad*precio) > 300
+ORDER BY uni_totales DESC, cliente
