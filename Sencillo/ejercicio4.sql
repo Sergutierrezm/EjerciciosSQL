@@ -89,3 +89,22 @@ COUNT(v.id) AS num_compras
 FROM clientes AS c
 LEFT JOIN ventas AS v ON  c.nombre = v.cliente
 GROUP BY c.nombre;
+
+--Ventas de clientes del segmento Premium: cliente, producto e importe (cantidad * precio).
+
+SELECT
+cliente,
+producto,
+v.cantidad * v.precio AS importe,
+segmento
+FROM ventas AS v
+INNER JOIN clientes AS c ON v.cliente = c.nombre
+WHERE c.segmento = 'premium';
+
+--Número de ventas por segmento
+SELECT
+COUNT(v.cliente) AS num_ventas,
+c.segmento
+FROM ventas AS v 
+INNER JOIN clientes as c ON v.cliente = c.nombre
+GROUP BY c.segmento
