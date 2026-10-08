@@ -66,9 +66,45 @@ WHERE e.nombre IS NULL;
 --4. Muestra el número de empleados de cada departamento, incluidos los que tienen 0.
 
 SELECT
-    d.nombre AS departamento,
+    d.id AS departamento,
     COUNT(e.id) AS num_empleados
 FROM departamentos AS d
 LEFT JOIN empleados AS e
     ON d.id = e.departamento_id
 GROUP BY d.nombre;
+
+
+--Por cada departamento, dime cuál es el salario medio,
+-- pero solo de los que superen 32000 de media, ordenados de mayor a menor.
+
+SELECT
+d.nombre AS departamento,
+AVG(e.salario) AS salario_medio
+FROM departamentos AS d
+INNER JOIN empleados AS e ON d.id = e.departamento_id
+GROUP BY d.nombre
+HAVING AVG(salario) >32000
+ORDER BY salario_medio DESC;
+
+--Por cada ciudad de los departamentos,
+ --dime la suma de los salarios, de mayor a menor.
+
+ SELECT
+ d.ciudad AS ciudades,
+ d.nombre AS departamento,
+ SUM(e.salario) AS salarios
+ FROM departamentos AS d  
+ INNER JOIN empleados AS e ON d.id = e.departamento_id
+ GROUP BY d.ciudad
+ ORDER BY salarios DESC
+
+--los empleados sin departamento y los departamentos sin empleados, en una sola consulta.
+
+SELECT 
+e.nombre AS empleados,
+d.nombre AS departamento
+FROM empleados AS e  
+FULL JOIN departamentos AS d ON e.departamento_id = d.id
+WHERE e.id IS NULL OR d.id IS NULL
+
+
