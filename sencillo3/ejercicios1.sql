@@ -42,3 +42,48 @@ COUNT(l.autor_id) AS num_libros
 FROM autores AS a
 LEFT JOIN libros AS l ON a.id = l.autor_id
 GROUP BY a.nombre
+
+
+
+--Muestra título y precio de los libros publicados a partir de 2018, ordenados del más caro al más barato.
+
+SELECT
+titulo,
+precio,
+anio
+FROM libros
+WHERE anio >= 2018  --para años siempre comparar >,<
+ORDER BY precio DESC 
+
+
+
+
+
+
+
+--Lista los autores de España ordenados alfabéticamente.
+SELECT
+nombre,
+pais
+FROM autores
+WHERE pais = 'España'
+ORDER BY nombre ASC --para orden alfabetico ASC 
+
+
+
+--Muestra los libros cuyo género sea Novela o Misterio.
+SELECT
+titulo,
+genero
+FROM libros
+WHERE genero in ('Novela' , 'Misterio')
+
+
+
+--Muestra los libros que no tienen precio informado.
+
+SELECT
+titulo,
+precio 
+FROM libros
+WHERE precio is NULL
